@@ -176,3 +176,52 @@ console.log(Object.keys(obj)); // ["name"] — Symbols are not enumerable
 ```
 
 ---
+
+## Advanced Object & Metaprogramming Features
+
+| Feature | Description |
+| :--- | :--- |
+| **Proxy** | An object that wraps another object to intercept and redefine fundamental operations (like property lookup, assignment, enumeration). |
+| **Reflect** | A built-in object that provides methods for interceptable JavaScript operations, mirroring the Proxy handler methods. |
+
+### Examples
+
+```js
+// Proxy — validation trap
+const validator = {
+  set(target, prop, value) {
+    if (prop === "age" && typeof value !== "number") {
+      throw new TypeError("Age must be a number");
+    }
+    target[prop] = value;
+    return true;
+  }
+};
+
+const person = new Proxy({}, validator);
+person.name = "Alice"; // ✅
+person.age = 30;       // ✅
+// person.age = "old"; // ❌ TypeError
+
+// Proxy — logging trap
+const handler = {
+  get(target, prop) {
+    console.log(`Getting property: ${prop}`);
+    return Reflect.get(target, prop);
+  }
+};
+
+const logged = new Proxy({ x: 10, y: 20 }, handler);
+console.log(logged.x); // "Getting property: x" → 10
+
+// Reflect
+const obj = { a: 1, b: 2 };
+
+Reflect.set(obj, "c", 3);
+console.log(Reflect.get(obj, "c")); // 3
+console.log(Reflect.has(obj, "a")); // true
+Reflect.deleteProperty(obj, "b");
+console.log(obj);                   // { a: 1, c: 3 }
+```
+
+---
