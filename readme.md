@@ -297,3 +297,36 @@ console.log(str.endsWith("!"));       // true
 console.log(str.endsWith("World!"));  // true
 console.log(str.endsWith("Hello", 5)); // true (consider only first 5 chars)
 ```
+
+### Object Methods
+| Feature | Description |
+| :--- | :--- |
+| **`Object.assign()`** | Copies all enumerable own properties from one or more source objects to a target object. |
+| **`Object.is()`** | Determines whether two values are the same value (fixes some quirks with `===` regarding `NaN` and `-0`). |
+
+#### Examples
+
+```js
+// Object.assign()
+const defaults = { theme: "light", lang: "en", notifications: true };
+const userPrefs = { theme: "dark", lang: "fr" };
+
+const config = Object.assign({}, defaults, userPrefs);
+console.log(config);
+// { theme: "dark", lang: "fr", notifications: true }
+
+// Shallow clone
+const original = { a: 1, b: { c: 2 } };
+const clone = Object.assign({}, original);
+clone.a = 99;
+console.log(original.a); // 1 (primitive — not affected)
+clone.b.c = 99;
+console.log(original.b.c); // 99 (object — still shared!)
+
+// Object.is() — fixes === edge cases
+console.log(NaN === NaN);         // false ← the classic JS quirk
+console.log(Object.is(NaN, NaN)); // true  ✅
+
+console.log(0 === -0);            // true  ← another quirk
+console.log(Object.is(0, -0));    // false ✅
+```
