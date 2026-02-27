@@ -25,3 +25,13 @@ Below is a comprehensive cheat sheet of the features introduced in ES6.
 | **Generators** | `function*` functions that can be paused and exited and later re-entered, yielding multiple values over time. |
 
 ---
+## Data Structures & Asynchronous Javascript
+
+| Feature | Description |
+| :--- | :--- |
+| **Promises** | An object representing the eventual completion (or failure) of an asynchronous operation and its resulting value. |
+| **Map Objects** | A collection of keyed data items, similar to an Object, but allows keys of any type and maintains insertion order. |
+| **Set Objects** | A collection of unique values (can be primitives or object references). |
+| **Symbol** | A completely unique and immutable primitive value, often used as "hidden" identifiers for object properties. |
+
+---
