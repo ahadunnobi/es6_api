@@ -330,3 +330,39 @@ console.log(Object.is(NaN, NaN)); // true  ✅
 console.log(0 === -0);            // true  ← another quirk
 console.log(Object.is(0, -0));    // false ✅
 ```
+
+### RegExp Features
+| Feature | Description |
+| :--- | :--- |
+| **`RegExp /u` flag** | Enables full Unicode support in a regular expression. |
+| **`RegExp /y` flag** | Performs a "sticky" search that matches starting at the current position in the target string. |
+
+#### Examples
+
+```js
+// /u flag — Unicode support
+const emoji = "Hello 🎉";
+console.log(/\u{1F389}/u.test(emoji)); // true (Unicode code point escape)
+
+// Without /u, surrogate pairs are mishandled:
+console.log("😀".length);          // 2  (two UTF-16 code units)
+console.log(/^.$/u.test("😀"));    // true  ✅ (treated as one character)
+console.log(/^.$/.test("😀"));     // false ❌ (without /u)
+
+// /y flag — sticky matching
+const text = "catbatrat";
+const sticky = /[a-z]{3}/y;
+
+sticky.lastIndex = 0;
+console.log(sticky.exec(text)?.[0]); // "cat"
+console.log(sticky.exec(text)?.[0]); // "bat"
+console.log(sticky.exec(text)?.[0]); // "rat"
+
+// Sticky vs global: /y only matches at lastIndex, /g scans ahead
+const global = /\d+/g;
+const input = "foo 42 bar 7";
+console.log(global.exec(input)?.[0]); // "42"
+console.log(global.exec(input)?.[0]); // "7"
+```
+
+---
