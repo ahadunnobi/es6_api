@@ -109,3 +109,70 @@ console.log(gen.next().value); // 3
 ```
 
 ---
+
+
+## Data Structures & Asynchronous Javascript
+
+| Feature | Description |
+| :--- | :--- |
+| **Promises** | An object representing the eventual completion (or failure) of an asynchronous operation and its resulting value. |
+| **Map Objects** | A collection of keyed data items, similar to an Object, but allows keys of any type and maintains insertion order. |
+| **Set Objects** | A collection of unique values (can be primitives or object references). |
+| **Symbol** | A completely unique and immutable primitive value, often used as "hidden" identifiers for object properties. |
+
+### Examples
+
+```js
+// Promises
+const fetchData = () =>
+  new Promise((resolve, reject) => {
+    setTimeout(() => resolve("Data loaded!"), 1000);
+  });
+
+fetchData()
+  .then(data => console.log(data))   // "Data loaded!"
+  .catch(err => console.error(err));
+
+// Promise chaining
+fetch("https://api.example.com/users")
+  .then(res => res.json())
+  .then(users => console.log(users))
+  .catch(err => console.error("Error:", err));
+
+// Map
+const map = new Map();
+map.set("name", "Alice");
+map.set(42, "the answer");
+map.set(true, "boolean key");
+
+console.log(map.get(42));    // "the answer"
+console.log(map.size);       // 3
+
+for (const [key, value] of map) {
+  console.log(`${key} → ${value}`);
+}
+
+// Set
+const set = new Set([1, 2, 3, 2, 1]);
+console.log(set.size);         // 3 (duplicates removed)
+console.log([...set]);         // [1, 2, 3]
+
+set.add(4);
+set.delete(1);
+console.log(set.has(1));       // false
+
+// Symbol
+const id = Symbol("id");
+const secret = Symbol("secret");
+
+const obj = {
+  [id]: 123,
+  name: "Alice"
+};
+
+console.log(obj[id]);          // 123
+console.log(id === secret);    // false — every Symbol is unique
+console.log(Object.keys(obj)); // ["name"] — Symbols are not enumerable
+```
+
+---
