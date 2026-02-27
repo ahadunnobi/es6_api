@@ -366,3 +366,78 @@ console.log(global.exec(input)?.[0]); // "7"
 ```
 
 ---
+
+
+## Math & Number Features
+
+### Number Features
+| Feature | Description |
+| :--- | :--- |
+| **`Number.isInteger()`** | Returns `true` if the passed value is an integer. |
+| **`Number.isSafeInteger()`** | Returns `true` if the argument is a safe integer (between `-(2^53 - 1)` and `2^53 - 1`). |
+| **`Number.isFinite()`** | Returns `true` if the argument is a finite number (doesn't coerce non-numbers, unlike global `isFinite()`). |
+| **`Number.isNaN()`** | Returns `true` if the argument is exactly `NaN` (doesn't coerce non-numbers, unlike global `isNaN()`). |
+| **`Number.EPSILON`** | The difference between 1 and the smallest floating point number greater than 1. |
+| **`Number.MIN_SAFE_INTEGER`**| The minimum safe integer in JavaScript (`-(2^53 - 1)`). |
+| **`Number.MAX_SAFE_INTEGER`**| The maximum safe integer in JavaScript (`2^53 - 1`). |
+
+### Math Features
+| Feature | Description |
+| :--- | :--- |
+| **`Math.trunc(x)`** | Returns the integer part of a number `x`, removing any fractional digits. |
+| **`Math.sign(x)`** | Returns `-1`, `0`, or `1` depending on whether `x` is negative, null/zero, or positive. |
+| **`Math.cbrt(x)`** | Returns the cube root of `x`. |
+| **`Math.log2(x)`** | Returns the base 2 logarithm of `x`. |
+| **`Math.log10(x)`** | Returns the base 10 logarithm of `x`. |
+
+### Examples
+
+```js
+// Number.isInteger()
+console.log(Number.isInteger(42));      // true
+console.log(Number.isInteger(42.0));    // true
+console.log(Number.isInteger(42.5));    // false
+console.log(Number.isInteger("42"));    // false (no coercion)
+
+// Number.isSafeInteger()
+console.log(Number.isSafeInteger(9007199254740991));  // true  (2^53 - 1)
+console.log(Number.isSafeInteger(9007199254740992));  // false (beyond safe range)
+
+// Number.isFinite() vs global isFinite()
+console.log(isFinite("100"));           // true  (coerces string to number)
+console.log(Number.isFinite("100"));    // false (no coercion)
+console.log(Number.isFinite(Infinity)); // false
+console.log(Number.isFinite(42));       // true
+
+// Number.isNaN() vs global isNaN()
+console.log(isNaN("hello"));           // true  (coerces, then checks)
+console.log(Number.isNaN("hello"));    // false (no coercion — not literally NaN)
+console.log(Number.isNaN(NaN));        // true
+
+// Number.EPSILON — floating point comparison
+const a = 0.1 + 0.2;
+const b = 0.3;
+console.log(a === b);                               // false (floating point!)
+console.log(Math.abs(a - b) < Number.EPSILON);     // true  ✅
+
+// Number.MAX_SAFE_INTEGER / MIN_SAFE_INTEGER
+console.log(Number.MAX_SAFE_INTEGER); // 9007199254740991
+console.log(Number.MIN_SAFE_INTEGER); // -9007199254740991
+
+// Math.trunc()
+console.log(Math.trunc(4.9));   // 4
+console.log(Math.trunc(-4.9));  // -4  (unlike Math.floor which gives -5)
+
+// Math.sign()
+console.log(Math.sign(-10));    // -1
+console.log(Math.sign(0));      //  0
+console.log(Math.sign(10));     //  1
+
+// Math.cbrt()
+console.log(Math.cbrt(27));     // 3
+console.log(Math.cbrt(-8));     // -2
+
+// Math.log2() & Math.log10()
+console.log(Math.log2(8));      // 3   (2^3 = 8)
+console.log(Math.log10(1000));  // 3   (10^3 = 1000)
+```
