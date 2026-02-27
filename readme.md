@@ -270,3 +270,30 @@ for (const [index, value] of letters.entries()) {
 
 console.log([...letters.keys()]); // [0, 1, 2]
 ```
+
+### String Methods
+| Feature | Description |
+| :--- | :--- |
+| **`String.prototype.includes()`** | Returns `true` if a string contains a specified value. |
+| **`String.prototype.startsWith()`**| Returns `true` if a string begins with a specified value. |
+| **`String.prototype.endsWith()`** | Returns `true` if a string ends with a specified value. |
+
+#### Examples
+
+```js
+const str = "Hello, World!";
+
+// includes()
+console.log(str.includes("World"));   // true
+console.log(str.includes("world"));   // false (case-sensitive)
+
+// startsWith()
+console.log(str.startsWith("Hello")); // true
+console.log(str.startsWith("World")); // false
+console.log(str.startsWith("World", 7)); // true (search from index 7)
+
+// endsWith()
+console.log(str.endsWith("!"));       // true
+console.log(str.endsWith("World!"));  // true
+console.log(str.endsWith("Hello", 5)); // true (consider only first 5 chars)
+```
