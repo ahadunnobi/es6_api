@@ -225,3 +225,48 @@ console.log(obj);                   // { a: 1, c: 3 }
 ```
 
 ---
+
+## Built-in Object Methods
+
+### Array Methods
+| Feature | Description |
+| :--- | :--- |
+| **`Array.from()`** | Creates a new Array instance from an array-like or iterable object (not just strings). |
+| **`Array.prototype.find()`** | Returns the value of the first element in the array that satisfies the provided testing function. |
+| **`Array.prototype.findIndex()`** | Returns the index of the first element in the array that satisfies the provided testing function. |
+| **`Array.prototype.entries()`** | Returns a new Array Iterator object that contains the key/value pairs for each index in the array. |
+| **`Array.prototype.keys()`** | Returns a new Array Iterator object that contains the keys for each index in the array. |
+
+#### Examples
+
+```js
+// Array.from()
+console.log(Array.from("hello"));          // ['h', 'e', 'l', 'l', 'o']
+console.log(Array.from({ length: 3 }, (_, i) => i * 2)); // [0, 2, 4]
+console.log(Array.from(new Set([1, 2, 3]))); // [1, 2, 3]
+
+// find() & findIndex()
+const users = [
+  { id: 1, name: "Alice" },
+  { id: 2, name: "Bob" },
+  { id: 3, name: "Charlie" }
+];
+
+const found = users.find(u => u.id === 2);
+console.log(found);      // { id: 2, name: "Bob" }
+
+const idx = users.findIndex(u => u.name === "Charlie");
+console.log(idx);        // 2
+
+// entries() & keys()
+const letters = ["a", "b", "c"];
+
+for (const [index, value] of letters.entries()) {
+  console.log(`${index}: ${value}`);
+}
+// 0: a
+// 1: b
+// 2: c
+
+console.log([...letters.keys()]); // [0, 1, 2]
+```
