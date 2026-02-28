@@ -270,7 +270,99 @@ function runDemo(name) {
       console.log("Math.log10(1000) :", Math.log10(1000));
     },
   };
-
-
 }
+const fn = demos[name];
+  if (!fn) return;
+  const out = captureOutput(fn);
+  setOutput("out-" + name, out || "(no output)");
+
+// ── Template literal live widget ────────────────────────────
+function updateTemplateLiteral() {
+  const name = document.getElementById("tl-name")?.value || "";
+  const year = parseInt(document.getElementById("tl-year")?.value) || 2000;
+  const age = new Date().getFullYear() - year;
+  const el = document.getElementById("tl-result");
+  if (el) el.textContent = `Hello, ${name}! You are ${age} years old.`;
+}
+document
+  .getElementById("tl-name")
+  ?.addEventListener("input", updateTemplateLiteral);
+document
+  .getElementById("tl-year")
+  ?.addEventListener("input", updateTemplateLiteral);
+updateTemplateLiteral();
+
+// ── Generator (Fibonacci stepper) ──────────────────────────
+function* fibonacci() {
+  let [a, b] = [0, 1];
+  while (true) {
+    yield a;
+    [a, b] = [b, a + b];
+  }
+}
+let fibGen = fibonacci();
+let fibStep = 0;
+let fibHistory = [];
+
+document.getElementById("gen-next-btn")?.addEventListener("click", () => {
+  const { value } = fibGen.next();
+  fibStep++;
+  fibHistory.push(value);
+  document.getElementById("gen-val").textContent = value;
+  document.getElementById("gen-step").textContent = fibStep;
+  document.getElementById("out-gen").textContent =
+    "History: " + fibHistory.slice(-8).join(" → ");
+});
+
+document.getElementById("gen-reset-btn")?.addEventListener("click", () => {
+  fibGen = fibonacci();
+  fibStep = 0;
+  fibHistory = [];
+  document.getElementById("gen-val").textContent = "—";
+  document.getElementById("gen-step").textContent = "0";
+  document.getElementById("out-gen").textContent =
+    "Click next() to step through Fibonacci...";
+});
+
+// ── Promise demo ─────────────────────────────────────────────
+function setPill(active) {
+  ["idle", "pending", "resolved", "rejected"].forEach((state) => {
+    const el = document.getElementById("pill-" + state);
+    if (el)
+      el.className = "state-pill" + (state === active ? " " + active : "");
+  });
+}
+setPill("idle");
+
+function runPromise(succeed) {
+  const outEl = document.getElementById("out-promise");
+  if (!outEl) return;
+  setPill("pending");
+  outEl.textContent = "⏳ Waiting 1.2s...";
+
+  new Promise((resolve, reject) => {
+    setTimeout(() => {
+      succeed
+        ? resolve("✅ Data loaded successfully!")
+        : reject(new Error("❌ Network error — request failed"));
+    }, 1200);
+  })
+    .then((val) => {
+      setPill("resolved");
+      outEl.textContent = val;
+      outEl.className = "output";
+    })
+    .catch((err) => {
+      setPill("rejected");
+      outEl.textContent = err.message;
+      outEl.className = "output error";
+    });
+}
+
+document
+  .getElementById("promise-resolve-btn")
+  ?.addEventListener("click", () => runPromise(true));
+document
+  .getElementById("promise-reject-btn")
+  ?.addEventListener("click", () => runPromise(false));
 
