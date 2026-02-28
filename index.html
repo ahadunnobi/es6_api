@@ -240,6 +240,124 @@ score = <span class="num">20</span>; <span class="cm">// ✅ reassignable</span>
             </div>
         </div>
     </div>
+    <!-- ─── PANEL: ASYNC & DATA ─── -->
+    <div class="panel" id="panel-async">
+        <div class="section">
+            <div class="section-title">Promises <span class="badge badge-async">async</span></div>
+            <div class="demo-card open">
+                <div class="demo-card-header">
+                    <h3>Promise states — pending → resolved / rejected</h3>
+                    <span class="chevron">▼</span>
+                </div>
+                <div class="demo-card-body">
+                    <pre><span class="kw">const</span> fetchData = (succeed) =>
+  <span class="kw">new</span> <span class="fn">Promise</span>((resolve, reject) => {
+    <span class="fn">setTimeout</span>(() => {
+      succeed
+        ? resolve(<span class="str">"✅ Data loaded!"</span>)
+        : reject(<span class="kw">new</span> <span class="fn">Error</span>(<span class="str">"❌ Network error"</span>));
+    }, <span class="num">1200</span>);
+  });</pre>
+                    <div class="promise-states">
+                        <div class="state-pill" id="pill-idle">idle</div>
+                        <div class="state-pill" id="pill-pending">pending</div>
+                        <div class="state-pill" id="pill-resolved">resolved</div>
+                        <div class="state-pill" id="pill-rejected">rejected</div>
+                    </div>
+                    <div class="run-row">
+                        <button class="btn-run" id="promise-resolve-btn">▶ Resolve</button>
+                        <button class="btn-run" style="background:var(--accent3)" id="promise-reject-btn">▶
+                            Reject</button>
+                        <div class="output" id="out-promise">Click a button to trigger a Promise...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Map &amp; Set</div>
+            <div class="demo-grid">
+
+                <div class="demo-card open">
+                    <div class="demo-card-header">
+                        <h3>Map — keyed collection</h3>
+                        <span class="chevron">▼</span>
+                    </div>
+                    <div class="demo-card-body">
+                        <div class="widget">
+                            <label>Key:</label>
+                            <input type="text" id="map-key" value="city" />
+                            <label>Value:</label>
+                            <input type="text" id="map-val" value="Tokyo" />
+                            <div class="run-row" style="margin:0 0 10px">
+                                <button class="btn-run" id="map-set-btn">set()</button>
+                                <button class="btn-run" style="background:var(--accent3)"
+                                    id="map-del-btn">delete()</button>
+                            </div>
+                            <table class="kv-table" id="map-table">
+                                <thead>
+                                    <tr>
+                                        <th>Key</th>
+                                        <th>Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card open">
+                    <div class="demo-card-header">
+                        <h3>Set — unique values</h3>
+                        <span class="chevron">▼</span>
+                    </div>
+                    <div class="demo-card-body">
+                        <div class="widget">
+                            <label>Add value (duplicates ignored):</label>
+                            <input type="text" id="set-val" value="apple" />
+                            <div class="run-row" style="margin:0 0 10px">
+                                <button class="btn-run" id="set-add-btn">add()</button>
+                                <button class="btn-run" style="background:var(--accent3)"
+                                    id="set-del-btn">delete()</button>
+                            </div>
+                            <div class="widget-result" id="set-display">{ }</div>
+                        </div>
+                        <pre><span class="kw">const</span> s = <span class="kw">new</span> <span class="fn">Set</span>([<span class="num">1</span>,<span class="num">2</span>,<span class="num">2</span>,<span class="num">3</span>]);
+<span class="fn">console</span>.log(s.size); <span class="cm">// 3</span></pre>
+                        <div class="run-row">
+                            <button class="btn-run" data-demo="set">▶ Run</button>
+                            <div class="output" id="out-set">— output —</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Symbol</div>
+            <div class="demo-card open">
+                <div class="demo-card-header">
+                    <h3>Symbol — unique identifiers</h3>
+                    <span class="chevron">▼</span>
+                </div>
+                <div class="demo-card-body">
+                    <pre><span class="kw">const</span> id = <span class="fn">Symbol</span>(<span class="str">"id"</span>);
+<span class="kw">const</span> id2 = <span class="fn">Symbol</span>(<span class="str">"id"</span>);
+<span class="fn">console</span>.log(id === id2);        <span class="cm">// false — always unique</span>
+
+<span class="kw">const</span> obj = { [id]: <span class="num">123</span>, name: <span class="str">"Alice"</span> };
+<span class="fn">console</span>.log(obj[id]);           <span class="cm">// 123</span>
+<span class="fn">console</span>.log(Object.<span class="fn">keys</span>(obj)); <span class="cm">// ["name"] — Symbol hidden</span></pre>
+                    <div class="run-row">
+                        <button class="btn-run" data-demo="symbol">▶ Run</button>
+                        <div class="output" id="out-symbol">— output —</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
