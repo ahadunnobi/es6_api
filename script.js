@@ -70,7 +70,7 @@ function runDemo(name) {
         console.log("blockVar outside block → ReferenceError ✓");
       }
     },
-      arrow() {
+    arrow() {
       const add = (a, b) => a + b;
       const square = (x) => x * x;
       const greet = () => "Hello!";
@@ -270,13 +270,11 @@ function runDemo(name) {
       console.log("Math.log10(1000) :", Math.log10(1000));
     },
   };
-}
-const fn = demos[name];
+  const fn = demos[name];
   if (!fn) return;
   const out = captureOutput(fn);
   setOutput("out-" + name, out || "(no output)");
-
-// ── Template literal live widget ────────────────────────────
+}
 function updateTemplateLiteral() {
   const name = document.getElementById("tl-name")?.value || "";
   const year = parseInt(document.getElementById("tl-year")?.value) || 2000;
@@ -365,9 +363,6 @@ document
 document
   .getElementById("promise-reject-btn")
   ?.addEventListener("click", () => runPromise(false));
-
-
-// ── Map demo ─────────────────────────────────────────────────
 const liveMap = new Map([
   ["name", "Alice"],
   ["city", "Tokyo"],
