@@ -69,7 +69,55 @@ function runDemo(name) {
       } catch (e) {
         console.log("blockVar outside block → ReferenceError ✓");
       }
-    }
-    
+    },
+      arrow() {
+      const add = (a, b) => a + b;
+      const square = (x) => x * x;
+      const greet = () => "Hello!";
+
+      console.log("add(3, 4)   =", add(3, 4));
+      console.log("square(5)   =", square(5));
+      console.log("greet()     =", greet());
+
+      // Lexical 'this'
+      const timer = {
+        id: 42,
+        start() {
+          return [1, 2, 3].map((n) => n + this.id);
+        },
+      };
+      console.log("lexical this:", timer.start());
+    },
+
+    // ── Template literals ───────────────────────────────────
+    template() {
+      const name = document.getElementById("tl-name").value || "Alice";
+      const year = parseInt(document.getElementById("tl-year").value) || 1995;
+      const age = new Date().getFullYear() - year;
+
+      console.log(`Hello, ${name}!`);
+      console.log(`You are ${age} years old.`);
+      const card = `\n  Name: ${name}\n  Age:  ${age}\n`;
+      console.log("Multi-line string:", card);
+    },
+
+    // ── Destructuring ───────────────────────────────────────
+    destructure() {
+      const user = { id: 1, name: "Bob", role: "admin" };
+      const { name, role } = user;
+      console.log("Object destructure:", name, role);
+
+      const [r, , b] = ["red", "green", "blue"];
+      console.log("Array destructure (skip middle):", r, b);
+
+      let x = 1,
+        y = 2;
+      [x, y] = [y, x];
+      console.log("Swap x, y:", x, y);
+
+      const { a: { b: deep } = {}, c = "default" } = { a: { b: 99 } };
+      console.log("Nested + default:", deep, c);
+    },
+
 }
 }
