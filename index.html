@@ -26,6 +26,220 @@
         <button class="tab-btn" data-tab="math">Math &amp; Number</button>
     </div>
 
+    <!-- ─── PANEL: CORE SYNTAX ─── -->
+    <div class="panel active" id="panel-syntax">
+        <div class="section">
+            <div class="section-title">Variables &amp; Scope</div>
+            <div class="demo-grid">
+
+                <div class="demo-card open">
+                    <div class="demo-card-header">
+                        <h3>let &amp; const</h3>
+                        <span class="chevron">▼</span>
+                    </div>
+                    <div class="demo-card-body">
+                        <pre><span class="kw">let</span> score = <span class="num">10</span>;
+score = <span class="num">20</span>; <span class="cm">// ✅ reassignable</span>
+
+<span class="kw">const</span> MAX = <span class="num">100</span>;
+<span class="cm">// MAX = 200; // ❌ TypeError</span>
+
+<span class="cm">// Block scope demo</span>
+<span class="kw">if</span> (<span class="kw">true</span>) {
+  <span class="kw">let</span> blockVar = <span class="str">"only inside"</span>;
+  <span class="fn">console</span>.log(blockVar); <span class="cm">// ✅</span>
+}
+<span class="cm">// console.log(blockVar); // ❌ ReferenceError</span></pre>
+                        <div class="run-row">
+                            <button class="btn-run" data-demo="letconst">▶ Run</button>
+                            <div class="output" id="out-letconst">— output —</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card open">
+                    <div class="demo-card-header">
+                        <h3>Arrow Functions</h3>
+                        <span class="chevron">▼</span>
+                    </div>
+                    <div class="demo-card-body">
+                        <pre><span class="kw">const</span> add = (a, b) => a + b;
+<span class="kw">const</span> square = <span class="op">x</span> => x * x;
+<span class="kw">const</span> greet = () => <span class="str">"Hello!"</span>;
+
+<span class="fn">console</span>.log(add(<span class="num">3</span>, <span class="num">4</span>));    <span class="cm">// 7</span>
+<span class="fn">console</span>.log(square(<span class="num">5</span>));    <span class="cm">// 25</span>
+<span class="fn">console</span>.log(greet());      <span class="cm">// Hello!</span>
+
+<span class="cm">// Lexical 'this'</span>
+<span class="kw">const</span> timer = {
+  id: <span class="num">42</span>,
+  start() {
+    <span class="kw">return</span> [<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>].map(n => n + <span class="kw">this</span>.id);
+  }
+};
+<span class="fn">console</span>.log(timer.start()); <span class="cm">// [43, 44, 45]</span></pre>
+                        <div class="run-row">
+                            <button class="btn-run" data-demo="arrow">▶ Run</button>
+                            <div class="output" id="out-arrow">— output —</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card open">
+                    <div class="demo-card-header">
+                        <h3>Template Literals</h3>
+                        <span class="chevron">▼</span>
+                    </div>
+                    <div class="demo-card-body">
+                        <div class="widget">
+                            <label>Your name:</label>
+                            <input type="text" id="tl-name" value="Alice" />
+                            <label>Birth year:</label>
+                            <input type="number" id="tl-year" value="1995" />
+                            <div class="widget-result" id="tl-result">—</div>
+                        </div>
+                        <pre><span class="kw">const</span> name = <span class="str">"Alice"</span>;
+<span class="kw">const</span> year = <span class="num">1995</span>;
+<span class="kw">const</span> age = <span class="num">2025</span> - year;
+
+<span class="fn">console</span>.log(<span class="str">`Hello, <span class="op">${name}</span>!`</span>);
+<span class="fn">console</span>.log(<span class="str">`You are <span class="op">${age}</span> years old.`</span>);
+
+<span class="cm">// Multi-line</span>
+<span class="kw">const</span> card = <span class="str">`
+  Name: <span class="op">${name}</span>
+  Age:  <span class="op">${age}</span>
+`</span>;</pre>
+                        <div class="run-row">
+                            <button class="btn-run" data-demo="template">▶ Run</button>
+                            <div class="output" id="out-template">— output —</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card open">
+                    <div class="demo-card-header">
+                        <h3>Destructuring</h3>
+                        <span class="chevron">▼</span>
+                    </div>
+                    <div class="demo-card-body">
+                        <pre><span class="cm">// Object destructuring</span>
+<span class="kw">const</span> user = { id:<span class="num">1</span>, name:<span class="str">"Bob"</span>, role:<span class="str">"admin"</span> };
+<span class="kw">const</span> { name, role } = user;
+<span class="fn">console</span>.log(name, role); <span class="cm">// Bob admin</span>
+
+<span class="cm">// Array destructuring</span>
+<span class="kw">const</span> [r, , b] = [<span class="str">"red"</span>, <span class="str">"green"</span>, <span class="str">"blue"</span>];
+<span class="fn">console</span>.log(r, b);       <span class="cm">// red blue</span>
+
+<span class="cm">// Swap variables</span>
+<span class="kw">let</span> x = <span class="num">1</span>, y = <span class="num">2</span>;
+[x, y] = [y, x];
+<span class="fn">console</span>.log(x, y);       <span class="cm">// 2 1</span>
+
+<span class="cm">// Nested + defaults</span>
+<span class="kw">const</span> { a: { b: deep } = {}, c = <span class="str">"default"</span> }
+  = { a: { b: <span class="num">99</span> } };
+<span class="fn">console</span>.log(deep, c);    <span class="cm">// 99 default</span></pre>
+                        <div class="run-row">
+                            <button class="btn-run" data-demo="destructure">▶ Run</button>
+                            <div class="output" id="out-destructure">— output —</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card open">
+                    <div class="demo-card-header">
+                        <h3>Spread &amp; Rest</h3>
+                        <span class="chevron">▼</span>
+                    </div>
+                    <div class="demo-card-body">
+                        <pre><span class="cm">// Spread — expand</span>
+<span class="kw">const</span> a = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>];
+<span class="kw">const</span> b = [<span class="num">0</span>, ...a, <span class="num">4</span>];
+<span class="fn">console</span>.log(b); <span class="cm">// [0,1,2,3,4]</span>
+
+<span class="kw">const</span> obj1 = { x: <span class="num">1</span> };
+<span class="kw">const</span> obj2 = { ...obj1, y: <span class="num">2</span> };
+<span class="fn">console</span>.log(obj2); <span class="cm">// {x:1, y:2}</span>
+
+<span class="cm">// Rest — collect</span>
+<span class="kw">function</span> <span class="fn">sum</span>(<span class="op">first</span>, ...<span class="op">rest</span>) {
+  <span class="kw">return</span> first + rest.<span class="fn">reduce</span>((t,n) => t+n, <span class="num">0</span>);
+}
+<span class="fn">console</span>.log(sum(<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>,<span class="num">4</span>)); <span class="cm">// 10</span></pre>
+                        <div class="run-row">
+                            <button class="btn-run" data-demo="spread">▶ Run</button>
+                            <div class="output" id="out-spread">— output —</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card open">
+                    <div class="demo-card-header">
+                        <h3>Classes</h3>
+                        <span class="chevron">▼</span>
+                    </div>
+                    <div class="demo-card-body">
+                        <pre><span class="kw">class</span> <span class="fn">Animal</span> {
+  <span class="fn">constructor</span>(name) { <span class="kw">this</span>.name = name; }
+  <span class="fn">speak</span>() { <span class="kw">return</span> <span class="str">`<span class="op">${this.name}</span> makes a noise.`</span>; }
+}
+
+<span class="kw">class</span> <span class="fn">Dog</span> <span class="kw">extends</span> Animal {
+  <span class="fn">speak</span>() { <span class="kw">return</span> <span class="str">`<span class="op">${this.name}</span> barks!`</span>; }
+}
+
+<span class="kw">const</span> d = <span class="kw">new</span> <span class="fn">Dog</span>(<span class="str">"Rex"</span>);
+<span class="fn">console</span>.log(d.<span class="fn">speak</span>());
+<span class="fn">console</span>.log(d <span class="kw">instanceof</span> Animal);</pre>
+                        <div class="run-row">
+                            <button class="btn-run" data-demo="classes">▶ Run</button>
+                            <div class="output" id="out-classes">— output —</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Generators</div>
+            <div class="demo-card open">
+                <div class="demo-card-header">
+                    <h3>function* — step through values <span class="badge badge-new">interactive</span></h3>
+                    <span class="chevron">▼</span>
+                </div>
+                <div class="demo-card-body">
+                    <pre><span class="kw">function</span>* <span class="fn">fibonacci</span>() {
+  <span class="kw">let</span> [a, b] = [<span class="num">0</span>, <span class="num">1</span>];
+  <span class="kw">while</span> (<span class="kw">true</span>) {
+    <span class="kw">yield</span> a;
+    [a, b] = [b, a + b];
+  }
+}</pre>
+                    <div class="gen-display">
+                        <div>
+                            <div class="gen-info">Current value</div>
+                            <div class="gen-value" id="gen-val">—</div>
+                        </div>
+                        <div>
+                            <div class="gen-info">Step #</div>
+                            <div class="gen-value" id="gen-step" style="color:var(--muted);font-size:1.5rem">0</div>
+                        </div>
+                    </div>
+                    <div class="run-row">
+                        <button class="btn-run" id="gen-next-btn">▶ next()</button>
+                        <button class="btn-run"
+                            style="background:var(--surface2);color:var(--muted);border:1px solid var(--border)"
+                            id="gen-reset-btn">↺ Reset</button>
+                        <div class="output" id="out-gen">Click next() to step through Fibonacci...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
