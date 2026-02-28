@@ -175,6 +175,102 @@ function runDemo(name) {
       console.log("Symbol hidden from for-in ✓");
     },
 
+    // ── Set ─────────────────────────────────────────────────
+    set() {
+      const s = new Set([1, 2, 2, 3, 3, 3]);
+      console.log("Set from [1,2,2,3,3,3]:", [...s]);
+      console.log("size:", s.size);
+      s.add(4);
+      s.delete(1);
+      console.log("after add(4) delete(1):", [...s]);
+      console.log("has(1):", s.has(1));
+      console.log("has(4):", s.has(4));
+    },
+
+    // ── Reflect ─────────────────────────────────────────────
+    reflect() {
+      const obj = { a: 1, b: 2 };
+      Reflect.set(obj, "c", 3);
+      console.log("get c:", Reflect.get(obj, "c"));
+      console.log("has a:", Reflect.has(obj, "a"));
+      Reflect.deleteProperty(obj, "b");
+      console.log("after deleteProperty b:", JSON.stringify(obj));
+    },
+
+    // ── Array.from ──────────────────────────────────────────
+    arrayfrom() {
+      console.log("from string:", Array.from("hello"));
+      console.log("from set:", Array.from(new Set([1, 2, 3])));
+      console.log(
+        "from map:",
+        Array.from({ length: 4 }, (_, i) => i * i),
+      );
+    },
+
+    // ── find & findIndex ────────────────────────────────────
+    find() {
+      const users = [
+        { id: 1, name: "Alice" },
+        { id: 2, name: "Bob" },
+        { id: 3, name: "Charlie" },
+        { id: 4, name: "Diana" },
+        { id: 5, name: "Eve" },
+      ];
+      const target = parseInt(document.getElementById("find-id").value) || 2;
+      const found = users.find((u) => u.id === target);
+      const idx = users.findIndex((u) => u.id === target);
+      console.log(
+        "find id=" + target + ":",
+        found ? JSON.stringify(found) : "undefined",
+      );
+      console.log("findIndex:", idx);
+    },
+
+    // ── entries & keys ──────────────────────────────────────
+    entries() {
+      const letters = ["a", "b", "c"];
+      for (const [i, v] of letters.entries()) {
+        console.log(`entries ${i}: ${v}`);
+      }
+      console.log("keys:", [...letters.keys()]);
+    },
+
+    // ── Object methods ──────────────────────────────────────
+    objectmethods() {
+      const merged = Object.assign({}, { a: 1 }, { b: 2 }, { a: 99 });
+      console.log("assign (a overridden):", merged);
+
+      console.log("Object.is(NaN, NaN):", Object.is(NaN, NaN));
+      console.log("NaN === NaN        :", NaN === NaN);
+      console.log("Object.is(0, -0)   :", Object.is(0, -0));
+      console.log("0 === -0           :", 0 === -0);
+    },
+
+    // ── Number.EPSILON ──────────────────────────────────────
+    numbereps() {
+      const sum = 0.1 + 0.2;
+      console.log("0.1 + 0.2 =", sum);
+      console.log("=== 0.3?", sum === 0.3);
+      console.log("≈ 0.3 via EPSILON?", Math.abs(sum - 0.3) < Number.EPSILON);
+      console.log("EPSILON:", Number.EPSILON);
+      console.log("MAX_SAFE_INTEGER:", Number.MAX_SAFE_INTEGER);
+      console.log("MIN_SAFE_INTEGER:", Number.MIN_SAFE_INTEGER);
+    },
+
+    // ── Math functions ──────────────────────────────────────
+    mathfns() {
+      console.log("Math.trunc(4.9)  :", Math.trunc(4.9));
+      console.log("Math.trunc(-4.9) :", Math.trunc(-4.9));
+      console.log("Math.sign(-10)   :", Math.sign(-10));
+      console.log("Math.sign(0)     :", Math.sign(0));
+      console.log("Math.sign(10)    :", Math.sign(10));
+      console.log("Math.cbrt(27)    :", Math.cbrt(27));
+      console.log("Math.cbrt(-8)    :", Math.cbrt(-8));
+      console.log("Math.log2(8)     :", Math.log2(8));
+      console.log("Math.log10(1000) :", Math.log10(1000));
+    },
+  };
+
 
 }
-}
+
