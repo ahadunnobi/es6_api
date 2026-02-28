@@ -508,6 +508,55 @@ Object.<span class="fn">is</span>(<span class="num">0</span>, -<span class="num"
             </div>
         </div>
     </div>
+    <!-- ─── PANEL: MATH & NUMBER ─── -->
+    <div class="panel" id="panel-math">
+        <div class="section">
+            <div class="section-title">Number Methods</div>
+            <div class="demo-card open">
+                <div class="demo-card-header">
+                    <h3>Number.isInteger / isFinite / isNaN / EPSILON <span class="badge badge-new">interactive</span>
+                    </h3><span class="chevron">▼</span>
+                </div>
+                <div class="demo-card-body">
+                    <div class="widget">
+                        <label>Enter a value to test:</label>
+                        <input type="text" id="num-input" value="42" />
+                        <div class="widget-result" id="num-result">—</div>
+                    </div>
+                    <pre><span class="cm">// EPSILON — float comparison</span>
+<span class="kw">const</span> close = Math.<span class="fn">abs</span>((<span class="num">0.1</span>+<span class="num">0.2</span>) - <span class="num">0.3</span>) &lt; Number.EPSILON;
+<span class="fn">console</span>.log(close); <span class="cm">// true</span></pre>
+                    <div class="run-row">
+                        <button class="btn-run" data-demo="numbereps">▶ Run EPSILON demo</button>
+                        <div class="output" id="out-numbereps">— output —</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Math Methods</div>
+            <div class="demo-card open">
+                <div class="demo-card-header">
+                    <h3>trunc / sign / cbrt / log2 / log10 <span class="badge badge-new">interactive</span></h3><span
+                        class="chevron">▼</span>
+                </div>
+                <div class="demo-card-body">
+                    <div class="widget">
+                        <label>Enter a number:</label>
+                        <input type="number" id="math-input" value="-27.9" step="any" />
+                        <div class="widget-result" id="math-result">—</div>
+                    </div>
+                    <div class="run-row">
+                        <button class="btn-run" data-demo="mathfns">▶ Run static examples</button>
+                        <div class="output" id="out-mathfns">— output —</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>ES6 Interactive Cheat Sheet &nbsp;·&nbsp; All demos run in-browser via script.js</footer>
     <script src="script.js"></script>
 </body>
 
