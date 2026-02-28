@@ -366,3 +366,115 @@ document
   .getElementById("promise-reject-btn")
   ?.addEventListener("click", () => runPromise(false));
 
+
+// ── Map demo ─────────────────────────────────────────────────
+const liveMap = new Map([
+  ["name", "Alice"],
+  ["city", "Tokyo"],
+]);
+function renderMap() {
+  const tbody = document.querySelector("#map-table tbody");
+  if (!tbody) return;
+  tbody.innerHTML = "";
+  liveMap.forEach((val, key) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${key}</td><td>${val}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+renderMap();
+
+document.getElementById("map-set-btn")?.addEventListener("click", () => {
+  const k = document.getElementById("map-key").value.trim();
+  const v = document.getElementById("map-val").value.trim();
+  if (k) {
+    liveMap.set(k, v);
+    renderMap();
+  }
+});
+
+document.getElementById("map-del-btn")?.addEventListener("click", () => {
+  const k = document.getElementById("map-key").value.trim();
+  liveMap.delete(k);
+  renderMap();
+});
+
+// ── Set demo ─────────────────────────────────────────────────
+const liveSet = new Set(["apple", "banana", "cherry"]);
+function renderSet() {
+  const el = document.getElementById("set-display");
+  if (el)
+    el.textContent =
+      "{ " + [...liveSet].join(", ") + " }  (size: " + liveSet.size + ")";
+}
+renderSet();
+
+document.getElementById("set-add-btn")?.addEventListener("click", () => {
+  const v = document.getElementById("set-val").value.trim();
+  if (v) {
+    liveSet.add(v);
+    renderSet();
+  }
+});
+
+document.getElementById("set-del-btn")?.addEventListener("click", () => {
+  const v = document.getElementById("set-val").value.trim();
+  liveSet.delete(v);
+  renderSet();
+});
+
+// ── Proxy demo ───────────────────────────────────────────────
+const proxyTarget = { name: "Alice", age: 30 };
+const proxyLog = [];
+const liveProxy = new Proxy(proxyTarget, {
+  get(target, prop) {
+    const val = Reflect.get(target, prop);
+    proxyLog.push({ type: "get", prop, val });
+    renderProxyLog();
+    return val;
+  },
+  set(target, prop, value) {
+    if (prop === "age") {
+      const n = Number(value);
+      if (isNaN(n) || n < 0 || n > 120) {
+        proxyLog.push({
+          type: "err",
+          msg: `age must be 0–120, got "${value}"`,
+        });
+        renderProxyLog();
+        return false;
+      }
+    }
+    proxyLog.push({ type: "set", prop, val: value });
+    Reflect.set(target, prop, value);
+    renderProxyLog();
+    return true;
+  },
+});
+
+function renderProxyLog() {
+  const el = document.getElementById("proxy-log");
+  if (!el) return;
+  el.innerHTML = proxyLog
+    .slice(-20)
+    .map((entry) => {
+      if (entry.type === "get")
+        return `<div class="log-line log-get">GET  ${entry.prop} → ${JSON.stringify(entry.val)}</div>`;
+      if (entry.type === "set")
+        return `<div class="log-line log-set">SET  ${entry.prop} = ${JSON.stringify(entry.val)}</div>`;
+      return `<div class="log-line log-err">ERR  ${entry.msg}</div>`;
+    })
+    .join("");
+  el.scrollTop = el.scrollHeight;
+}
+
+document.getElementById("proxy-set-btn")?.addEventListener("click", () => {
+  const k = document.getElementById("proxy-key").value.trim();
+  const v = document.getElementById("proxy-val").value.trim();
+  if (k) liveProxy[k] = v;
+});
+
+document.getElementById("proxy-get-btn")?.addEventListener("click", () => {
+  const k = document.getElementById("proxy-key").value.trim();
+  if (k) liveProxy[k]; // triggers get trap
+});
