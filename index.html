@@ -359,6 +359,58 @@ score = <span class="num">20</span>; <span class="cm">// ✅ reassignable</span>
         </div>
     </div>
 
+    <!-- ─── PANEL: META & PROXY ─── -->
+    <div class="panel" id="panel-meta">
+        <div class="section">
+            <div class="section-title">Proxy</div>
+            <div class="demo-card open">
+                <div class="demo-card-header">
+                    <h3>Intercept get &amp; set operations <span class="badge badge-new">live</span></h3>
+                    <span class="chevron">▼</span>
+                </div>
+                <div class="demo-card-body">
+                    <div class="widget">
+                        <label>Property name:</label>
+                        <input type="text" id="proxy-key" value="age" />
+                        <label>Value (age must be a number 0–120):</label>
+                        <input type="text" id="proxy-val" value="30" />
+                        <div class="run-row" style="margin:0 0 0">
+                            <button class="btn-run" id="proxy-set-btn">set()</button>
+                            <button class="btn-run"
+                                style="background:var(--surface2);color:var(--text);border:1px solid var(--border)"
+                                id="proxy-get-btn">get()</button>
+                        </div>
+                    </div>
+                    <div class="proxy-log" id="proxy-log">
+                        <div class="log-line" style="color:var(--muted)">— Proxy operations will appear here —</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Reflect</div>
+            <div class="demo-card open">
+                <div class="demo-card-header">
+                    <h3>Reflect methods</h3>
+                    <span class="chevron">▼</span>
+                </div>
+                <div class="demo-card-body">
+                    <pre><span class="kw">const</span> obj = { a: <span class="num">1</span>, b: <span class="num">2</span> };
+
+Reflect.<span class="fn">set</span>(obj, <span class="str">"c"</span>, <span class="num">3</span>);
+<span class="fn">console</span>.log(Reflect.<span class="fn">get</span>(obj, <span class="str">"c"</span>)); <span class="cm">// 3</span>
+<span class="fn">console</span>.log(Reflect.<span class="fn">has</span>(obj, <span class="str">"a"</span>)); <span class="cm">// true</span>
+Reflect.<span class="fn">deleteProperty</span>(obj, <span class="str">"b"</span>);
+<span class="fn">console</span>.log(JSON.<span class="fn">stringify</span>(obj));  <span class="cm">// {"a":1,"c":3}</span></pre>
+                    <div class="run-row">
+                        <button class="btn-run" data-demo="reflect">▶ Run</button>
+                        <div class="output" id="out-reflect">— output —</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 
