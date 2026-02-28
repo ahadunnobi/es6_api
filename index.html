@@ -411,6 +411,103 @@ Reflect.<span class="fn">deleteProperty</span>(obj, <span class="str">"b"</span>
             </div>
         </div>
     </div>
+    <!-- ─── PANEL: BUILT-INS ─── -->
+    <div class="panel" id="panel-builtins">
+        <div class="section">
+            <div class="section-title">Array Methods</div>
+            <div class="demo-grid">
+
+                <div class="demo-card open">
+                    <div class="demo-card-header">
+                        <h3>Array.from()</h3><span class="chevron">▼</span>
+                    </div>
+                    <div class="demo-card-body">
+                        <pre><span class="fn">Array</span>.<span class="fn">from</span>(<span class="str">"hello"</span>);
+<span class="cm">// ['h','e','l','l','o']</span>
+
+<span class="fn">Array</span>.<span class="fn">from</span>({length:<span class="num">4</span>}, (_,i) => i*i);
+<span class="cm">// [0, 1, 4, 9]</span></pre>
+                        <div class="run-row">
+                            <button class="btn-run" data-demo="arrayfrom">▶ Run</button>
+                            <div class="output" id="out-arrayfrom">— output —</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card open">
+                    <div class="demo-card-header">
+                        <h3>find() &amp; findIndex()</h3><span class="chevron">▼</span>
+                    </div>
+                    <div class="demo-card-body">
+                        <div class="widget">
+                            <label>Find user with id:</label>
+                            <input type="number" id="find-id" value="2" min="1" max="5" />
+                            <div class="widget-result" id="find-result">—</div>
+                        </div>
+                        <div class="run-row">
+                            <button class="btn-run" data-demo="find">▶ Run code</button>
+                            <div class="output" id="out-find">— output —</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card open">
+                    <div class="demo-card-header">
+                        <h3>entries() &amp; keys()</h3><span class="chevron">▼</span>
+                    </div>
+                    <div class="demo-card-body">
+                        <pre><span class="kw">const</span> letters = [<span class="str">"a"</span>,<span class="str">"b"</span>,<span class="str">"c"</span>];
+<span class="kw">for</span> (<span class="kw">const</span> [i, v] <span class="kw">of</span> letters.<span class="fn">entries</span>())
+  <span class="fn">console</span>.log(<span class="str">`<span class="op">${i}</span>: <span class="op">${v}</span>`</span>);</pre>
+                        <div class="run-row">
+                            <button class="btn-run" data-demo="entries">▶ Run</button>
+                            <div class="output" id="out-entries">— output —</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">String Methods</div>
+            <div class="demo-card open">
+                <div class="demo-card-header">
+                    <h3>includes / startsWith / endsWith <span class="badge badge-new">interactive</span></h3><span
+                        class="chevron">▼</span>
+                </div>
+                <div class="demo-card-body">
+                    <div class="widget">
+                        <label>Test string:</label>
+                        <input type="text" id="str-main" value="Hello, World!" />
+                        <label>Search value:</label>
+                        <input type="text" id="str-search" value="World" />
+                        <div class="widget-result" id="str-result">—</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Object Methods</div>
+            <div class="demo-card open">
+                <div class="demo-card-header">
+                    <h3>Object.assign() &amp; Object.is()</h3><span class="chevron">▼</span>
+                </div>
+                <div class="demo-card-body">
+                    <pre><span class="kw">const</span> merged = Object.<span class="fn">assign</span>({}, {a:<span class="num">1</span>}, {b:<span class="num">2</span>});
+<span class="cm">// {a:1, b:2}</span>
+
+Object.<span class="fn">is</span>(NaN, NaN); <span class="cm">// true  (NaN === NaN is false!)</span>
+Object.<span class="fn">is</span>(<span class="num">0</span>, -<span class="num">0</span>);   <span class="cm">// false (0 === -0 is true!)</span></pre>
+                    <div class="run-row">
+                        <button class="btn-run" data-demo="objectmethods">▶ Run</button>
+                        <div class="output" id="out-objectmethods">— output —</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 
