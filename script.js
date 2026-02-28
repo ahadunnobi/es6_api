@@ -118,6 +118,63 @@ function runDemo(name) {
       const { a: { b: deep } = {}, c = "default" } = { a: { b: 99 } };
       console.log("Nested + default:", deep, c);
     },
+    // ── Spread & Rest ───────────────────────────────────────
+    spread() {
+      const a = [1, 2, 3];
+      const b = [0, ...a, 4];
+      console.log("Spread array:", b);
+
+      const obj1 = { x: 1 };
+      const obj2 = { ...obj1, y: 2 };
+      console.log("Spread object:", obj2);
+
+      function sum(first, ...rest) {
+        return first + rest.reduce((t, n) => t + n, 0);
+      }
+      console.log("Rest params sum(1,2,3,4):", sum(1, 2, 3, 4));
+
+      // for...of
+      const fruits = ["🍎", "🍌", "🍒"];
+      const result = [];
+      for (const f of fruits) result.push(f);
+      console.log("for...of fruits:", result.join(" "));
+    },
+
+    // ── Classes ─────────────────────────────────────────────
+    classes() {
+      class Animal {
+        constructor(name) {
+          this.name = name;
+        }
+        speak() {
+          return `${this.name} makes a noise.`;
+        }
+      }
+      class Dog extends Animal {
+        speak() {
+          return `${this.name} barks!`;
+        }
+      }
+      const a = new Animal("Cat");
+      const d = new Dog("Rex");
+      console.log(a.speak());
+      console.log(d.speak());
+      console.log("d instanceof Animal:", d instanceof Animal);
+      console.log("d instanceof Dog:", d instanceof Dog);
+    },
+
+    // ── Symbol ──────────────────────────────────────────────
+    symbol() {
+      const id = Symbol("id");
+      const id2 = Symbol("id");
+      console.log("id === id2:", id === id2);
+
+      const obj = { [id]: 123, name: "Alice" };
+      console.log("obj[id]:", obj[id]);
+      console.log("Object.keys:", Object.keys(obj));
+      console.log("Symbol hidden from for-in ✓");
+    },
+
 
 }
 }
