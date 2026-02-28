@@ -1,16 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ES6 Interactive Cheat Sheet</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ES6 Interactive Cheat Sheet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+    <header>
+        <h1>JavaScript <span>ES6</span><br>Interactive Cheat Sheet</h1>
+        <p>Click any section to expand it, then run examples live in the browser.</p>
+    </header>
+
+    <div class="tabs" id="tabs">
+        <button class="tab-btn active" data-tab="syntax">Core Syntax</button>
+        <button class="tab-btn" data-tab="async">Async & Data</button>
+        <button class="tab-btn" data-tab="meta">Meta &amp; Proxy</button>
+        <button class="tab-btn" data-tab="builtins">Built-ins</button>
+        <button class="tab-btn" data-tab="math">Math &amp; Number</button>
+    </div>
 
 
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
+
 </html>
