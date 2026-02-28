@@ -478,3 +478,87 @@ document.getElementById("proxy-get-btn")?.addEventListener("click", () => {
   const k = document.getElementById("proxy-key").value.trim();
   if (k) liveProxy[k]; // triggers get trap
 });
+
+// ── String methods live widget ────────────────────────────────
+function updateStringDemo() {
+  const main = document.getElementById("str-main")?.value || "";
+  const search = document.getElementById("str-search")?.value || "";
+  const el = document.getElementById("str-result");
+  if (!el) return;
+  el.textContent =
+    `includes("${search}")   : ${main.includes(search)}\n` +
+    `startsWith("${search}") : ${main.startsWith(search)}\n` +
+    `endsWith("${search}")   : ${main.endsWith(search)}`;
+}
+document
+  .getElementById("str-main")
+  ?.addEventListener("input", updateStringDemo);
+document
+  .getElementById("str-search")
+  ?.addEventListener("input", updateStringDemo);
+updateStringDemo();
+
+// ── Number live widget ───────────────────────────────────────
+function updateNumberDemo() {
+  const raw = document.getElementById("num-input")?.value ?? "";
+  const el = document.getElementById("num-result");
+  if (!el) return;
+  const v =
+    raw === "NaN"
+      ? NaN
+      : raw === "Infinity"
+        ? Infinity
+        : raw === "-Infinity"
+          ? -Infinity
+          : Number(raw);
+  el.textContent =
+    `isInteger(${raw})    : ${Number.isInteger(v)}\n` +
+    `isSafeInteger(${raw}): ${Number.isSafeInteger(v)}\n` +
+    `isFinite(${raw})     : ${Number.isFinite(v)}\n` +
+    `isNaN(${raw})        : ${Number.isNaN(v)}`;
+}
+document
+  .getElementById("num-input")
+  ?.addEventListener("input", updateNumberDemo);
+updateNumberDemo();
+
+// ── Math live widget ─────────────────────────────────────────
+function updateMathDemo() {
+  const raw = parseFloat(document.getElementById("math-input")?.value);
+  const el = document.getElementById("math-result");
+  if (!el || isNaN(raw)) {
+    if (el) el.textContent = "Enter a number";
+    return;
+  }
+  el.textContent =
+    `Math.trunc(${raw})  = ${Math.trunc(raw)}\n` +
+    `Math.sign(${raw})   = ${Math.sign(raw)}\n` +
+    `Math.cbrt(${raw})   = ${Math.cbrt(raw).toFixed(4)}\n` +
+    `Math.log2(${raw})   = ${raw > 0 ? Math.log2(raw).toFixed(4) : "NaN (must be > 0)"}\n` +
+    `Math.log10(${raw})  = ${raw > 0 ? Math.log10(raw).toFixed(4) : "NaN (must be > 0)"}`;
+}
+document
+  .getElementById("math-input")
+  ?.addEventListener("input", updateMathDemo);
+updateMathDemo();
+
+// ── find() widget wiring ─────────────────────────────────────
+document.getElementById("find-id")?.addEventListener("input", () => {
+  const users = [
+    { id: 1, name: "Alice" },
+    { id: 2, name: "Bob" },
+    { id: 3, name: "Charlie" },
+    { id: 4, name: "Diana" },
+    { id: 5, name: "Eve" },
+  ];
+  const target = parseInt(document.getElementById("find-id").value);
+  const found = users.find((u) => u.id === target);
+  const idx = users.findIndex((u) => u.id === target);
+  const el = document.getElementById("find-result");
+  if (el)
+    el.textContent = found
+      ? `found: ${JSON.stringify(found)}   index: ${idx}`
+      : `No user with id=${target}`;
+});
+// Trigger once on load
+document.getElementById("find-id")?.dispatchEvent(new Event("input"));
